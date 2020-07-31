@@ -1,0 +1,23 @@
+html {
+  font-family: sans-serif;
+}
+body {
+  padding: 1em;
+}
+div {
+  margin-left: 1em;
+  margin-right: 1em;
+  margin-bottom: 1px;
+}
+.bar {
+  background-color: darkblue;
+  color: white;
+  float: left;
+  clear: both;
+}
+.left {
+  float: left;
+}
+.right {
+  float: right;
+}
