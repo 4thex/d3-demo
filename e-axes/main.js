@@ -33,8 +33,8 @@ svg
   .call(d3.axisBottom(x));
 let y = d3
   .scaleLinear()
-  .domain(d3.extent(data, d => d.count))
-  .range([height, 0]);
+  .domain([d3.max(data, d=> d.count), d3.min(data, d => d.count)])
+  .range([0, height]);
 svg
   .append("g")
   .call(d3.axisLeft(y));
@@ -47,6 +47,8 @@ svg
   .enter()
   .append("rect")
   .attr("x", d => x(Date.parse(d.date)))
-  .attr("y", d => y(minCount)-y(d.count))
+  .attr("y", d => y(minCount))
+  .attr("transform", d => `rotate(180, ${x(Date.parse(d.date))}, ${y(d.count)})`)
+  // .attr("y", d => y(d.count))
   .attr("width", d => 5)
-  .attr("height", d => `${y(d.count)}`);
+  .attr("height", d => y(d.count));
