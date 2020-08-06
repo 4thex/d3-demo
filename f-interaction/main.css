@@ -4,3 +4,16 @@ html {
 body {
   padding: 1em;
 }
+.tooltip {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  background-color: lightgrey;
+  color: blue;
+  border-radius: 5px;
+  border: solid orange;
+  padding: 5px;
+}
+.hidden {
+  opacity: 0;
+}

@@ -47,6 +47,10 @@ let minCount = d3.min(data.map(d => d.count));
 let dateRange = d3.extent(data.map(d => Date.parse(d.date)));
 // 2* to get a thinner bar
 let xInterval = x(dateRange[1])/(2*data.length);
+let toolTip = d3
+  .select("body")
+  .append("div")
+  .attr("class", "tooltip hidden");
 svg
   .append("g")
   .selectAll("rect")
@@ -57,7 +61,21 @@ svg
   .attr("y", d => y(d.count))
   .attr("width", xInterval)
   .attr("height", d => y(minCount)-y(d.count))
-  .attr("fill", "blue");
+  .attr("fill", "blue")
+  .on("mouseover", d => {
+    toolTip
+      .transition()
+      .attr("class", "tooltip");
+    toolTip
+      .html(d.count)
+      .style("left", `${d3.event.pageX}px`)
+      .style("top", `${d3.event.pageY-60}px`)
+  })
+  .on("mouseout", d => {
+    toolTip
+      .transition()
+      .attr("class", "tooltip hidden")
+  });
 svg
   .append("path")
   .datum(data)
