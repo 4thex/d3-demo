@@ -26,19 +26,10 @@
             Hello World
           </section>
           <section>
-            <iframe src="a-hello" width="" height=""></iframe>
+            <iframe src="a-hello"></iframe>
           </section>
-          <section id="a-hello-code" src="a-hello/main.js">
-          </section>
-          <section>
-            <pre>
-              <code data-line-numbers>
-                let elements = d3
-                  .select("body")
-                  .append("h1")
-                  .text("Hello World!");
-              </code>
-            </pre>
+          <section id="a-hello-code" class="x-code" src="a-hello/main.js">
+            <pre><code></code></pre>
           </section>
         </section>
         <section>
@@ -54,6 +45,7 @@
       Reveal.initialize({
         plugins: [ RevealHighlight ]
       });
+      let hljs = Reveal.getPlugin("highlight").hljs;
       Reveal.on( 'slidechanged', event => {
         let id = event.currentSlide.id;
         if(!id) return;
@@ -62,8 +54,9 @@
         if(!src) return;
         let code = d3.text(src)
           .then(text => {
-            slide.html(`<pre><code data-line-numbers>${text}</code></pre>`);
+            let block = slide.select("pre").select("code").html(`${text}`).node();
             // Rerender
+            hljs.highlightBlock(block);
             // Reveal.initialize({
             //   plugins: [ RevealHighlight ]
             // }).then(()=> {
