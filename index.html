@@ -1,28 +1,81 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8" />
     <link rel="icon" href="d3.svg" />
     <title>D3 Demo</title>
-    <link rel="stylesheet" href="main.css">
     <script src="node_modules/d3/dist/d3.min.js" charset="utf-8"></script>
+
+		<link rel="stylesheet" href="node_modules/reveal.js/dist/reset.css">
+		<link rel="stylesheet" href="node_modules/reveal.js/dist/reveal.css">
+		<link rel="stylesheet" href="node_modules/reveal.js/dist/theme/league.css" id="theme">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="node_modules/reveal.js/plugin/highlight/monokai.css" id="highlight-theme">
+    <script src="node_modules/reveal.js/plugin/highlight/highlight.js"></script>
   </head>
   <body>
+    <div class="reveal">
+      <div class="slides">
+        <section>
+          Data Visualization with D3
+        </section>
+        <section>
+          <section>
+            Hello World
+          </section>
+          <section>
+            <iframe src="a-hello" width="" height=""></iframe>
+          </section>
+          <section id="a-hello-code" src="a-hello/main.js">
+          </section>
+          <section>
+            <pre>
+              <code data-line-numbers>
+                let elements = d3
+                  .select("body")
+                  .append("h1")
+                  .text("Hello World!");
+              </code>
+            </pre>
+          </section>
+        </section>
+        <section>
+          <section>
+            Binding
+          </section>
+
+        </section>
+      </div>
+    </div>
+    <script src="node_modules/reveal.js/dist/reveal.js"></script>
+    <script>
+      Reveal.initialize({
+        plugins: [ RevealHighlight ]
+      });
+      Reveal.on( 'slidechanged', event => {
+        let id = event.currentSlide.id;
+        if(!id) return;
+        let slide = d3.select(`#${id}`);
+        let src = slide.attr("src");
+        if(!src) return;
+        let code = d3.text(src)
+          .then(text => {
+            slide.html(`<pre><code data-line-numbers>${text}</code></pre>`);
+            // Rerender
+            // Reveal.initialize({
+            //   plugins: [ RevealHighlight ]
+            // }).then(()=> {
+            //   Reveal.slide(event.indexh, event.indexv);
+            // });
+          });
+      });
+    </script>
     <script type="text/javascript">
-      let data = [
-        { href: "a-hello", name: "Hello"},
-        { href: "b-binding", name: "Binding"},
-        { href: "c-bars", name: "Simple Bar Chart"},
-        { href: "d-scaling", name: "Simple Scaling Example"},
-      ];
-      d3
-        .selectAll("a.menu")
-        .data(data)
-        .enter()
-        .append("a")
-        .attr("class", "menu")
-        .attr("href", d => d.href)
-        .text(d => `| ${d.name}`);
+      let fetchCode = () => {
+        console.log("Fetching the code");
+      };
     </script>
   </body>
 </html>
