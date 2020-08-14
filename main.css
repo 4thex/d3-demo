@@ -8,3 +8,8 @@ body {
 .menu {
   padding: 1em;
 }
+iframe {
+  position: absolute;
+  height: 20em;
+  width: 100%;
+}

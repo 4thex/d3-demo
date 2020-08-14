@@ -25,44 +25,68 @@
           <section>
             Hello World
           </section>
-          <section>
-            <iframe src="a-hello"></iframe>
+          <section class="x-demo" src="a-hello">
           </section>
-          <section id="a-hello-code" class="x-code" src="a-hello/main.js">
-            <pre><code></code></pre>
+          <section class="x-code" src="a-hello/main.js">
           </section>
         </section>
         <section>
           <section>
             Binding
           </section>
-
+          <section class="x-demo" src="b-binding" />
+          </section>
+          <section class="x-code" src="b-binding/main.js">
+          </section>
+        </section>
+        <section>
+          <section>
+            Bars
+          </section>
+          <section class="x-demo" src="c-bars">
+          </section>
+          <section class="x-code" src="c-bars/main.js">
+          </section>
         </section>
       </div>
     </div>
     <script src="node_modules/reveal.js/dist/reveal.js"></script>
     <script>
       Reveal.initialize({
-        plugins: [ RevealHighlight ]
+        plugins: [ RevealHighlight ],
+        center: false
       });
       let hljs = Reveal.getPlugin("highlight").hljs;
-      Reveal.on( 'slidechanged', event => {
-        let id = event.currentSlide.id;
-        if(!id) return;
-        let slide = d3.select(`#${id}`);
+      Reveal.on("slidechanged", event => {
+        // let id = event.currentSlide.id;
+        // if(!id) return;
+        // let slide = d3.select(`#${id}`);
+        let slide = d3.select(event.currentSlide);
         let src = slide.attr("src");
         if(!src) return;
-        let code = d3.text(src)
-          .then(text => {
-            let block = slide.select("pre").select("code").html(`${text}`).node();
-            // Rerender
-            hljs.highlightBlock(block);
-            // Reveal.initialize({
-            //   plugins: [ RevealHighlight ]
-            // }).then(()=> {
-            //   Reveal.slide(event.indexh, event.indexv);
-            // });
-          });
+        if(slide.classed("x-demo")) {
+          if(slide.select("iframe").empty()) {
+            slide
+              .append("iframe")
+              .attr("src", src);
+          }
+          return;
+        }
+        if(slide.classed("x-code")) {
+          let code = d3.text(src)
+            .then(text => {
+              if(slide.select("pre").empty()) {
+                let block = slide
+                .append("pre")
+                .append("code")
+                .html(`${text}`).node();
+                // Rerender
+                hljs.highlightBlock(block);
+                hljs.lineNumbersBlock(block);
+              }
+            });
+          return;
+        }
       });
     </script>
     <script type="text/javascript">
