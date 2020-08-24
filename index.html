@@ -48,6 +48,33 @@
           <section class="x-code" src="c-bars/main.js">
           </section>
         </section>
+        <section>
+          <section>
+            Scaling
+          </section>
+          <section class="x-demo" src="d-scaling">
+          </section>
+          <section class="x-code" src="d-scaling/main.js">
+          </section>
+        </section>
+        <section>
+          <section>
+            Axes
+          </section>
+          <section class="x-demo" src="e-axes">
+          </section>
+          <section class="x-code" src="e-axes/main.js">
+          </section>
+        </section>
+        <section>
+          <section>
+            Interaction
+          </section>
+          <section class="x-demo" src="f-interaction">
+          </section>
+          <section class="x-code" src="f-interaction/main.js">
+          </section>
+        </section>
       </div>
     </div>
     <script src="node_modules/reveal.js/dist/reveal.js"></script>
@@ -68,7 +95,9 @@
           if(slide.select("iframe").empty()) {
             slide
               .append("iframe")
-              .attr("src", src);
+              .attr("src", src)
+              .attr("width", "100%")
+              .attr("height", "700px");
           }
           return;
         }
